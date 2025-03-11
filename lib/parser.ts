@@ -26,8 +26,6 @@ export function tokenize(expression: string): Token[] {
     throw new Error('Invalid expression');
   }
 
-  console.log(tokens)
-
   return tokens.filter((t) => t.length > 0 && t !== ' ') as Token[];
 }
 
