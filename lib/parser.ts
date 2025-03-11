@@ -20,13 +20,15 @@ function getNodeOrder(node: AstNode): number {
 }
 
 export function tokenize(expression: string): Token[] {
-  const tokens = expression.match(/(\d+|\+|\-|\*|\/|\^|\(|\)|sin|cos|sqrt|!|>|<|=|&&|\|\|sin|cos|sqrt|PI|true|false)/g);
+  const tokens = expression.match(/(\d+|\+|\-|\*|\/|\^|\(|\)|sin|cos|sqrt|>|<|=|&&|\|\||PI|true|false|.)/g);
 
   if (!tokens) {
     throw new Error('Invalid expression');
   }
 
-  return tokens as Token[];
+  console.log(tokens)
+
+  return tokens.filter((t) => t.length > 0 && t !== ' ') as Token[];
 }
 
 function findCloseParenthesis(tokens: Token[]): number {

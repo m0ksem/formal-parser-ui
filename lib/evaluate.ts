@@ -20,6 +20,10 @@ export function evaluateAstStepByStep(ast: AstNode): string[] {
       return node.value
     }
 
+    if (node.type === 'boolean') {
+      return node.value
+    }
+
     if ('right' in node) {
       const left = evaluateNode(node.left)
       node.left = makeNodeFromValue(left)
@@ -106,7 +110,7 @@ export function evaluateAstStepByStep(ast: AstNode): string[] {
       }
     }
 
-    throw new Error('Unable to evaluate node')
+    throw new Error('Unable to evaluate node: Unknown node type ' + node.type )
   }
   
 
