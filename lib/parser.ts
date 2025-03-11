@@ -20,7 +20,7 @@ function getNodeOrder(node: AstNode): number {
 }
 
 export function tokenize(expression: string): Token[] {
-  const tokens = expression.match(/(\d+|\+|\-|\*|\/|\^|\(|\)|sin|cos|sqrt|!|>|<|=|&&|\|\|sin|cos|sqrt|PI)/g);
+  const tokens = expression.match(/(\d+|\+|\-|\*|\/|\^|\(|\)|sin|cos|sqrt|!|>|<|=|&&|\|\|sin|cos|sqrt|PI|true|false)/g);
 
   if (!tokens) {
     throw new Error('Invalid expression');
@@ -82,6 +82,9 @@ function buildAst(tokens: Token[], left: Ast = []) {
     }
     else if (!isNaN(Number(token))) {
       ast.push({ type: 'number', value: Number(token) });
+    }
+    else if (token === 'true' || token === 'false') {
+      ast.push({ type: 'boolean', value: token });
     }
     else if (token === '+') {
       ast.push({ type: 'add', left: ast.pop() as AstNode, right: buildAst(tokens) });

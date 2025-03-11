@@ -67,7 +67,13 @@ const astNormalized = computed(() => {
 const evaluation = computed(() => {
   if (!ast.value) return null
 
-  return evaluateAstStepByStep(ast.value)
+  try {
+    return evaluateAstStepByStep(ast.value)
+  } catch (e) {
+    error.value = (e as Error).message
+    console.error(e)
+    return null
+  }
 })
 </script>
 
